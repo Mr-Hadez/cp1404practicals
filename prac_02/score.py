@@ -7,18 +7,13 @@ import random
 
 
 def main():
-    score = get_score()
+    score = int(input("Enter score: "))
     result = determine_score_status(score)
     print(f"{result}")
     random_score = random.randint(0, 100)
     print(f"Random score: {random_score}")
     result = determine_score_status(random_score)
     print(f"Your score is {result}")
-
-
-def get_score():
-    score = int(input("Enter score: "))
-    return score
 
 
 def determine_score_status(score):
@@ -31,6 +26,7 @@ def determine_score_status(score):
     else:
         result = "Bad"
     return result
+
 
 if __name__ == "__main__":
     main()
