@@ -9,7 +9,7 @@ import random
 def main():
     score = float(input("Enter score: "))
     result = determine_score_status(score)
-    print(f"Your score is {result}")
+    print(f"{result}")
     random_score = random.randint(0, 100)
     print(f"Random score: {random_score}")
     result = determine_score_status(random_score)
@@ -17,15 +17,15 @@ def main():
 
 
 def determine_score_status(score):
-    if 100 >= score >= 90:
-        result = "Excellent"
-    elif 90 > score >= 50:
-        result = "Passable"
-    elif 0 <= score < 50:
-        result = "Bad"
-    else:
+    if score < 0 or score > 100:
         result = "Invalid score"
+    elif score >= 90:
+        result = "Excellent"
+    elif score >= 50:
+        result = "Passable"
+    else:
+        result = "Bad"
     return result
 
-
-main()
+if __name__ == "__main__":
+    main()
