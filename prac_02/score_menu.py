@@ -8,6 +8,7 @@ MENU_STRING = "(G)et a valid score\n(P)rint result\n(S)how stars\n(Q)uit"
 
 
 def main():
+    """Get valid score and run menu loop to get a new score, print score status, print stars or quit."""
     score = get_valid_score()
     print(MENU_STRING)
     choice = input(">>> ").upper()
@@ -27,6 +28,7 @@ def main():
 
 
 def get_valid_score():
+    """Check score is valid."""
     score = int(input("Enter score: "))
     while score <= 0 or score > 100:
         print("Invalid score")
