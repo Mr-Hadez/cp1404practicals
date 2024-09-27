@@ -1,12 +1,13 @@
 """
 CP1404
-Amended a broken program to determine score status
+Amended a broken program to determine score status and generate random score
 """
 
 import random
 
 
 def main():
+    """Get score, determine status and generate random score."""
     score = int(input("Enter score: "))
     result = determine_score_status(score)
     print(f"{result}")
@@ -17,6 +18,7 @@ def main():
 
 
 def determine_score_status(score):
+    """Determine score status"""
     if score < 0 or score > 100:
         result = "Invalid score"
     elif score >= 90:
