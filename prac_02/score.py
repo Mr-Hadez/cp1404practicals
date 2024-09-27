@@ -7,7 +7,7 @@ import random
 
 
 def main():
-    score = float(input("Enter score: "))
+    score = int(input("Enter score: "))
     result = determine_score_status(score)
     print(f"{result}")
     random_score = random.randint(0, 100)
