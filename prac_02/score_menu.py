@@ -8,11 +8,12 @@ MENU_STRING = "(G)et a valid score\n(P)rint result\n(S)how stars\n(Q)uit"
 
 
 def main():
+    score = get_valid_score()
     print(MENU_STRING)
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "G":
-            score = int(input("Enter score: "))
+            score = get_valid_score()
         elif choice == "P":
             result = determine_score_status(score)
             print(f"{result}")
@@ -23,6 +24,14 @@ def main():
         print(MENU_STRING)
         choice = input(">>> ").upper()
     print("Farewell")
+
+
+def get_valid_score():
+    score = int(input("Enter score: "))
+    while score <= 0 or score > 100:
+        print("Invalid score")
+        score = int(input("Enter score: "))
+    return score
 
 
 main()
