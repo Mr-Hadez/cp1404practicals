@@ -37,9 +37,8 @@ almost_numbers = ['0', '10', '21', '3', '-7', '88', '9']
 numbers = [int(almost_number) for almost_number in almost_numbers]
 print(numbers)
 
-# Variable name could probably be called 'large_numbers' but I like how specific mine is
-numbers_more_than_nine = [number for number in numbers if number > 9]
-print(numbers_more_than_nine)
+large_numbers = [number for number in numbers if number > 9]
+print(large_numbers)
 
 last_name = [name.split()[1] for name in full_names if len(name) > 11]
 print(", ".join(last_name))
