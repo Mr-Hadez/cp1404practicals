@@ -7,6 +7,7 @@ FILENAME = "subject_data.txt"
 
 
 def main():
+    """Read data from file and display subject details."""
     data = load_data()
     print(data)
     display_subject_details(data)
@@ -31,8 +32,9 @@ def load_data():
 
 
 def display_subject_details(data):
+    """Display subject details."""
     for datum in data:
-        print(f"{datum[0]} is taught by {datum[1]} and has {datum[2]} students")
+        print(f"{datum[0]} is taught by {datum[1]:12} and has {datum[2]:3} students")
 
 
 main()
