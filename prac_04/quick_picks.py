@@ -5,16 +5,17 @@ Generate quick picks
 
 import random
 
+NUMBERS_PER_LINE = 6
 MIN_NUMBER = 1
 MAX_NUMBER = 45
 
 number_of_quick_picks = int(input("How many quick picks? "))
 for i in range(number_of_quick_picks):
-    numbers = []
-    for j in range(0, 6):
+    random_numbers = []
+    for j in range(NUMBERS_PER_LINE):
         number = random.randint(MIN_NUMBER, MAX_NUMBER)
-        while number in numbers:
+        while number in random_numbers:
             number = random.randint(MIN_NUMBER, MAX_NUMBER)
-        numbers.append(number)
-    numbers.sort()
-    print(" ".join(str(number) for number in numbers))
+        random_numbers.append(number)
+    random_numbers.sort()
+    print(" ".join(str(number) for number in random_numbers))
