@@ -5,10 +5,13 @@ List exercises
 
 # Basic list
 numbers = []
+number_index = 1
 
-for i in range(0, 5):
-    number = int(input("Number: "))
+number = int(input(f"Number {number_index}: "))
+while number >= 0:
     numbers.append(number)
+    number_index += 1
+    number = int(input(f"Number {number_index}: "))
 print(f"The first number is {numbers[0]}")
 print(f"The last number is {numbers[-1]}")
 print(f"The smallest number is {min(numbers)}")
