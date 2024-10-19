@@ -24,9 +24,13 @@ def get_data():
 
 def extract_data(data):
     """Extract countries in a set and champions and count to a dictionary."""
-    countries = set([row[1] for row in data])
-    champions = [row[2] for row in data]
-    champion_to_count = {champion: champions.count(champion) for champion in champions}
+    countries = {row[1] for row in data}
+    champion_to_count = {}
+    for row in data:
+        try:
+            champion_to_count[row[2]] += 1
+        except KeyError:
+            champion_to_count[row[2]] = 1
     return champion_to_count, countries
 
 
