@@ -13,6 +13,4 @@ while name != "":
         print(f"{name} is {COLOUR_TO_CODE[name]}")
     except KeyError:
         print("Invalid colour name")
-        name = input("Enter colour name: ").title()
-    else:
-        name = input("Enter colour name: ").title()
+    name = input("Enter colour name: ").title()
