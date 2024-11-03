@@ -12,7 +12,7 @@ class Guitar:
     """Guitar class"""
 
     def __init__(self, name="", year=0, cost=0.0):
-        """Initialise Guitar constructor"""
+        """Initialise Guitar constructor."""
         self.name = name
         self.year = year
         self.cost = cost
@@ -22,9 +22,9 @@ class Guitar:
         return f"{self.name} ({self.year}) : ${self.cost}"
 
     def get_age(self):
-        """Calculate the age of the guitar"""
+        """Calculate the age of the guitar."""
         return CURRENT_YEAR - self.year
 
     def is_vintage(self):
-        """Determine if the guitar is vintage"""
+        """Determine if the guitar is vintage."""
         return self.get_age() >= VINTAGE_AGE
