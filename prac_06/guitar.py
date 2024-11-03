@@ -1,4 +1,11 @@
-"""Guitar class"""
+"""
+Guitar class
+Estimate: 5 minutes
+Actual:   5 minutes
+"""
+
+VINTAGE_AGE = 50
+CURRENT_YEAR = 2022
 
 
 class Guitar:
@@ -11,13 +18,13 @@ class Guitar:
         self.cost = cost
 
     def __str__(self):
-        """..."""
+        """Return a string view of Guitar."""
         return f"{self.name} ({self.year}) : ${self.cost}"
 
-    def get_age(self, current_year):
+    def get_age(self):
         """Calculate the age of the guitar"""
-        return current_year - self.year
+        return CURRENT_YEAR - self.year
 
-    def is_vintage(self, age):
+    def is_vintage(self):
         """Determine if the guitar is vintage"""
-        return age >= 50
+        return self.get_age() >= VINTAGE_AGE
