@@ -1,17 +1,16 @@
 """
 Project Management program
 Estimate: 45 minutes
-Actual:   50 minutes
+Actual:   60 minutes
 """
 
 from operator import attrgetter
 import datetime
-
-from prac_03.capitalist_conrad import FILENAME
 from project import Project
 
 DEFAULT_FILE = "projects.txt"
 MENU_STRING = "- (L)oad projects\n- (S)ave projects\n- (D)isplay projects\n- (F)ilter projects by date\n- (A)dd new project\n- (U)pdate project\nQ-Quit"
+HEADER = "Name\tStart Date\tPriority\tCost Estimate\tCompletion Percentage\n"
 
 
 def main():
@@ -22,10 +21,10 @@ def main():
     choice = load_menu()
     while choice != "Q":
         if choice == "L":
-            filename = input("Filename: ")
+            filename = get_non_empty_string("Filename: ")
             projects = load_data(filename)
         elif choice == "S":
-            filename = input("Filename: ")
+            filename = get_non_empty_string("Filename: ")
             save_data(filename, projects)
         elif choice == "D":
             display_project_details(projects)
@@ -85,6 +84,7 @@ def display_project_details(projects):
 
 
 def filter_projects(projects):
+    """Filter projects by date."""
     filter_date_string = input("Show projects that start after date (dd/mm/yy): ")
     filter_date = datetime.datetime.strptime(filter_date_string, "%d/%m/%Y").date()
     filtered_projects = [project for project in projects if project.is_after_date(filter_date)]
@@ -92,6 +92,7 @@ def filter_projects(projects):
 
 
 def update_project(project):
+    """Update fields of a project"""
     completion_percentage = get_valid_int("New Percentage: ", min_value=0, max_value=100)
     priority = get_valid_int("Priority: ", min_value=1)
     project.priority = priority
@@ -103,8 +104,11 @@ def get_valid_int(prompt, min_value=None, max_value=None):
     while True:
         try:
             value = int(input(prompt))
-            if (min_value is not None and value < min_value) or (max_value is not None and value > max_value):
-                print(f"Please enter a value between {min_value} and {max_value}.")
+            if min_value is not None and max_value is not None:
+                if not (min_value <= value <= max_value):
+                    print(f"Please enter a value between {min_value} and {max_value}.")
+            elif min_value is not None and value < min_value:
+                print(f"Please enter a value greater than or equal to {min_value}.")
             else:
                 return value
         except ValueError:
@@ -116,8 +120,11 @@ def get_valid_float(prompt, min_value=None, max_value=None):
     while True:
         try:
             value = float(input(prompt))
-            if (min_value is not None and value < min_value) or (max_value is not None and value > max_value):
-                print(f"Please enter a value between {min_value} and {max_value}.")
+            if min_value is not None and max_value is not None:
+                if not (min_value <= value <= max_value):
+                    print(f"Please enter a value between {min_value} and {max_value}.")
+            elif min_value is not None and value < min_value:
+                print(f"Please enter a value greater than or equal to {min_value}.")
             else:
                 return value
         except ValueError:
@@ -152,7 +159,7 @@ def choose_project(projects):
             number = int(input("Project choice: "))
             if number < 0:
                 print("Number must be >= 0")
-            elif number > len(projects):
+            elif number >= len(projects):
                 print("Invalid place number")
             else:
                 is_valid_input = True
@@ -164,6 +171,7 @@ def choose_project(projects):
 
 
 def add_new_project(projects):
+    """Add new project."""
     name = get_non_empty_string("Name: ")
     start_date = get_valid_date("Start date (dd/mm/yyyy): ")
     priority = get_valid_int("Priority: ", min_value=1)  # Assuming priority should be a positive integer
@@ -173,9 +181,10 @@ def add_new_project(projects):
     projects.append(project)
 
 
-def save_data(projects, filename):
+def save_data(filename, projects):
     """Save projects to file."""
     with open(filename, "w", newline="") as out_file:
+        out_file.write(HEADER)
         for project in projects:
             line = f"{project.name}\t{project.start_date.strftime('%d/%m/%Y')}\t{project.priority}\t{project.cost}\t{project.completion_percentage}\n"
             out_file.write(line)
