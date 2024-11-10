@@ -6,6 +6,8 @@ Actual:   50 minutes
 
 from operator import attrgetter
 import datetime
+
+from prac_03.capitalist_conrad import FILENAME
 from project import Project
 
 DEFAULT_FILE = "projects.txt"
@@ -23,7 +25,8 @@ def main():
             filename = input("Filename: ")
             projects = load_data(filename)
         elif choice == "S":
-            pass
+            filename = input("Filename: ")
+            save_data(filename, projects)
         elif choice == "D":
             display_project_details(projects)
         elif choice == "F":
@@ -43,9 +46,10 @@ def main():
         else:
             print("Invalid menu choice")
         choice = load_menu()
-    save_data(projects)
-    print(f"{len(projects)} places saved to {DEFAULT_FILE}")
-    print("Have a nice day :)")
+    save_prompt = input(f"Would you like to save to {DEFAULT_FILE}? ")
+    if save_prompt == "yes":
+        save_data(projects, DEFAULT_FILE)
+    print("Thank you for using custom-built project management software.")
 
 
 def load_data(filename):
@@ -131,11 +135,11 @@ def add_new_project(projects):
     projects.append(project)
 
 
-def save_data(places):
-    """Save data list to places.csv file."""
-    with open(FILENAME, "w", newline="") as out_file:
-        writer = csv.writer(out_file)
-        writer.writerows(places)
+def save_data(projects, filename):
+    """Save projects to file."""
+    with open(filename, "w", newline="") as out_file:
+        for project in projects:
+            print(project, file=out_file)
 
 
 if __name__ == '__main__':
