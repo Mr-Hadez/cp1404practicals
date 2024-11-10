@@ -30,9 +30,8 @@ def main():
         elif choice == "D":
             display_project_details(projects)
         elif choice == "F":
-            filter_date_string = input("Show projects that start after date (dd/mm/yy): ")
-            filter_date = datetime.datetime.strptime(filter_date_string, "%d/%m/%Y").date()
-            filtered_projects = [project for project in projects if project.is_after_date(filter_date)]
+            filtered_projects = filter_projects(projects)
+            filtered_projects.sort(key=attrgetter("start_date"))
             for project in filtered_projects:
                 print(project)
         elif choice == "A":
@@ -46,8 +45,8 @@ def main():
         else:
             print("Invalid menu choice")
         choice = load_menu()
-    save_prompt = input(f"Would you like to save to {DEFAULT_FILE}? ")
-    if save_prompt == "yes":
+    save_prompt = input(f"Would you like to save to {DEFAULT_FILE}? ").upper()
+    if save_prompt == "YES" or save_prompt == "Y":
         save_data(projects, DEFAULT_FILE)
     print("Thank you for using custom-built project management software.")
 
@@ -83,6 +82,13 @@ def display_project_details(projects):
     complete_projects = [project for project in projects if project.is_complete()]
     for project in complete_projects:
         print(project)
+
+
+def filter_projects(projects):
+    filter_date_string = input("Show projects that start after date (dd/mm/yy): ")
+    filter_date = datetime.datetime.strptime(filter_date_string, "%d/%m/%Y").date()
+    filtered_projects = [project for project in projects if project.is_after_date(filter_date)]
+    return filtered_projects
 
 
 def update_project(project):
@@ -139,7 +145,8 @@ def save_data(projects, filename):
     """Save projects to file."""
     with open(filename, "w", newline="") as out_file:
         for project in projects:
-            print(project, file=out_file)
+            line = f"{project.name}\t{project.start_date.strftime('%d/%m/%Y')}\t{project.priority}\t{project.cost}\t{project.completion_percentage}\n"
+            out_file.write(line)
 
 
 if __name__ == '__main__':
