@@ -92,23 +92,56 @@ def filter_projects(projects):
 
 
 def update_project(project):
-    completion_percentage = int(input("New Percentage: "))
-    priority = int(input("Priority: "))
+    completion_percentage = get_valid_int("New Percentage: ", min_value=0, max_value=100)
+    priority = get_valid_int("Priority: ", min_value=1)
     project.priority = priority
     project.completion_percentage = completion_percentage
 
 
-def get_valid_input():
-    """Get valid user input for name and country."""
-    name = input("Name: ")
-    while not name:
-        print("Input can not be blank")
-        name = input("Name: ")
-    country = input("Country: ")
-    while not country:
-        print("Input can not be blank")
-        country = input("Country: ")
-    return country, name
+def get_valid_int(prompt, min_value=None, max_value=None):
+    """Prompt the user for an integer and validate the input."""
+    while True:
+        try:
+            value = int(input(prompt))
+            if (min_value is not None and value < min_value) or (max_value is not None and value > max_value):
+                print(f"Please enter a value between {min_value} and {max_value}.")
+            else:
+                return value
+        except ValueError:
+            print("Invalid input; please enter a valid integer.")
+
+
+def get_valid_float(prompt, min_value=None, max_value=None):
+    """Prompt the user for a float and validate the input."""
+    while True:
+        try:
+            value = float(input(prompt))
+            if (min_value is not None and value < min_value) or (max_value is not None and value > max_value):
+                print(f"Please enter a value between {min_value} and {max_value}.")
+            else:
+                return value
+        except ValueError:
+            print("Invalid input; please enter a valid number.")
+
+
+def get_valid_date(prompt):
+    """Prompt the user for a date and validate the format."""
+    while True:
+        date_string = input(prompt)
+        try:
+            return datetime.datetime.strptime(date_string, "%d/%m/%Y").date()
+        except ValueError:
+            print("Invalid date format; please enter date as dd/mm/yyyy.")
+
+
+def get_non_empty_string(prompt):
+    """Prompt the user for a non-empty string."""
+    while True:
+        value = input(prompt).strip()
+        if value:
+            return value
+        else:
+            print("Input cannot be blank. Please enter a valid value.")
 
 
 def choose_project(projects):
@@ -131,13 +164,12 @@ def choose_project(projects):
 
 
 def add_new_project(projects):
-    name = input("Name: ")
-    start_date = input("Start date (dd/mm/yy): ")
-    date = datetime.datetime.strptime(start_date, "%d/%m/%Y").date()
-    priority = int(input("Priority: "))
-    cost_estimate = float(input("Cost estimate: $"))
-    completion_percentage = int(input("Completion percentage: "))
-    project = Project(name, date, priority, cost_estimate, completion_percentage)
+    name = get_non_empty_string("Name: ")
+    start_date = get_valid_date("Start date (dd/mm/yyyy): ")
+    priority = get_valid_int("Priority: ", min_value=1)  # Assuming priority should be a positive integer
+    cost_estimate = get_valid_float("Cost estimate: $", min_value=0)  # Assuming cost should be non-negative
+    completion_percentage = get_valid_int("Completion percentage: ", min_value=0, max_value=100)
+    project = Project(name, start_date, priority, cost_estimate, completion_percentage)
     projects.append(project)
 
 
