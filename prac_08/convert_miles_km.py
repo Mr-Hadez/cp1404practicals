@@ -1,11 +1,13 @@
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.properties import StringProperty
 
 MILE_TO_KM_CONVERSION = 1.60934
 
 
 class ConvertMilesToKmApp(App):
     """ ConvertMilesToKmApp is a Kivy App for squaring a number """
+    km_output = StringProperty()
 
     def build(self):
         """ build the Kivy app from the kv file """
@@ -16,12 +18,13 @@ class ConvertMilesToKmApp(App):
     def handle_convert(self, value):
         """ handle calculation (could be button press or other call), output result to label widget """
         result = float(value) * MILE_TO_KM_CONVERSION
-        self.root.ids.output_label.text = str(result)
+        self.km_output = str(result)
 
     def handle_increment(self, input, value):
         """Handle presses on the up/down buttons to change counter."""
         input = int(input)
         input += value
         self.root.ids.input_number.text = str(input)
+
 
 ConvertMilesToKmApp().run()
