@@ -1,8 +1,10 @@
+"""
+Dynamic labels program
+"""
+
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.button import Label
-
-NEW_COLOUR = (1, 0, 0, 1)
+from kivy.uix.label import Label
 
 
 class DynamicLabelsApp(App):
@@ -11,7 +13,7 @@ class DynamicLabelsApp(App):
     def __init__(self, **kwargs):
         """Construct main app."""
         super().__init__(**kwargs)
-        self.name_to_phone = ("Bob Brown", "Cat Cyan", "Oren Ochre")
+        self.names = ["Bob Brown", "Cat Cyan", "Oren Ochre"]
 
     def build(self):
         """Build the Kivy GUI."""
@@ -22,9 +24,8 @@ class DynamicLabelsApp(App):
 
     def create_widgets(self):
         """Create label from data and add them to the GUI."""
-        for name in self.name_to_phone:
+        for name in self.names:
             temp_label = Label(text=name)
-            temp_label.background_color = NEW_COLOUR
             self.root.ids.main.add_widget(temp_label)
 
 
