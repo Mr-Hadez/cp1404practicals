@@ -1,3 +1,7 @@
+"""
+Box Layout Demo
+"""
+
 from kivy.app import App
 from kivy.lang import Builder
 
@@ -14,5 +18,6 @@ class BoxLayoutDemo(App):
     def handle_clear(self):
         self.root.ids.output_label.text = ""
         self.root.ids.input_name.text = ""
+
 
 BoxLayoutDemo().run()
