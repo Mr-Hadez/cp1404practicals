@@ -22,9 +22,12 @@ def main():
             display_taxis(taxis)
             current_taxi = choose_taxi(taxis)
         elif choice == "D":
-            drive_taxi(current_taxi)
-            print(f"Your Prius trip cost you ${current_taxi.get_fare():.2f}")
-            bill_to_date += current_taxi.get_fare()
+            if current_taxi is None:
+                print("You need to choose a taxi before you can drive")
+            else:
+                drive_taxi(current_taxi)
+                print(f"Your Prius trip cost you ${current_taxi.get_fare():.2f}")
+                bill_to_date += current_taxi.get_fare()
         else:
             print("Invalid option")
         print(f"Bill to date: ${bill_to_date:.2f}")
@@ -42,11 +45,15 @@ def display_taxis(taxis):
 
 def choose_taxi(taxis):
     taxi_choice = int(input("Choose taxi: "))
-    current_taxi = taxis[taxi_choice]
-    return current_taxi
+    try:
+        current_taxi = taxis[taxi_choice]
+        return current_taxi
+    except IndexError:
+        print("Invalid taxi choice")
 
 
 def drive_taxi(current_taxi):
+    print("You need to choose a taxi before you can drive")
     distance = int(input("Drive how far? "))
     current_taxi.start_fare()
     current_taxi.drive(distance)
