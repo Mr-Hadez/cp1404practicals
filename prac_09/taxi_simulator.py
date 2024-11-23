@@ -39,11 +39,13 @@ def main():
 
 
 def display_taxis(taxis):
+    """Display all taxis in list."""
     for i, taxi in enumerate(taxis):
         print(f"{i} - {taxi}")
 
 
 def choose_taxi(taxis):
+    """Choose taxi from list."""
     taxi_choice = int(input("Choose taxi: "))
     try:
         current_taxi = taxis[taxi_choice]
@@ -53,7 +55,7 @@ def choose_taxi(taxis):
 
 
 def drive_taxi(current_taxi):
-    print("You need to choose a taxi before you can drive")
+    """Drive taxi."""
     distance = int(input("Drive how far? "))
     current_taxi.start_fare()
     current_taxi.drive(distance)
