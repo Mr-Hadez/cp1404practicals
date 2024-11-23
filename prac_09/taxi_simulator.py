@@ -26,8 +26,9 @@ def main():
                 print("You need to choose a taxi before you can drive")
             else:
                 drive_taxi(current_taxi)
-                print(f"Your Prius trip cost you ${current_taxi.get_fare():.2f}")
-                bill_to_date += current_taxi.get_fare()
+                fare = current_taxi.get_fare()
+                print(f"Your {current_taxi.name} trip cost you ${fare :.2f}")
+                bill_to_date += fare
         else:
             print("Invalid option")
         print(f"Bill to date: ${bill_to_date:.2f}")
