@@ -12,17 +12,21 @@ def main():
     """Load menu for user to choose taxi, drive or quit."""
     print("Let's drive!")
     taxis = [Taxi("Prius", 100), SilverServiceTaxi("Limo", 100, 2), SilverServiceTaxi("Hummer", 200, 4)]
+    current_taxi = None
+    bill_to_date = 0
     print(MENU_STRING)
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "C":
             display_taxis(taxis)
-            my_taxi = choose_taxi(taxis)
+            current_taxi = choose_taxi(taxis)
         elif choice == "D":
-            pass
+            drive_taxi(current_taxi)
+            print(f"Your Prius trip cost you ${current_taxi.get_fare():.2f}")
+            bill_to_date += current_taxi.get_fare()
         else:
             print("Invalid option")
-        print(f"Bill to date: ${my_taxi.get_fare()}")
+        print(f"Bill to date: ${bill_to_date:.2f}")
         print(MENU_STRING)
         choice = input(">>> ").upper()
 
@@ -33,9 +37,15 @@ def display_taxis(taxis):
 
 
 def choose_taxi(taxis):
-    taxi_choice = input("Choose taxi: ")
-    my_taxi = taxis[int(taxi_choice)]
-    return my_taxi
+    taxi_choice = int(input("Choose taxi: "))
+    current_taxi = taxis[taxi_choice]
+    return current_taxi
+
+
+def drive_taxi(current_taxi):
+    distance = int(input("Drive how far? "))
+    current_taxi.start_fare()
+    current_taxi.drive(distance)
 
 
 main()
