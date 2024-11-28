@@ -1,0 +1,24 @@
+BoxLayout:
+    orientation: 'vertical'
+    BoxLayout:
+        orientation: 'horizontal'
+        TextInput:
+            id: input_number
+            font_size: 48
+            multiline: False
+            size_hint_x: 4
+            on_text: app.handle_convert(self.text)
+        BoxLayout:
+            orientation: 'vertical'
+            Button:
+                text: 'Up'
+                on_press: app.handle_increment(input_number.text,1)
+            Button:
+                text: 'Down'
+                on_press: app.handle_increment(input_number.text,-1)
+
+    Label:
+        id: output_label
+        text: app.km_output
+        font_size: 48
+        color: (1, 1, 0, 1)
