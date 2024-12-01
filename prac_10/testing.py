@@ -42,13 +42,26 @@ def run_tests():
     assert car.fuel == 0, "Car does not set fuel correctly"
 
 
+def format_phrase(string):
+    """
+       Format phrase as a sentence
+       >>> format_phrase("hello")
+       'Hello.'
+       >>> format_phrase("It is an ex parrot.")
+       'It is an ex parrot.'
+       >>> format_phrase("python.")
+       'Python.'
+       """
+    string = list(string)
+    string[0] = string[0].upper()
+    if string[-1] != ".":
+        string.append(".")
+    return "".join(string)
+
 run_tests()
 
 # (PyCharm may see your >>> doctest comments and run doctests anyway.)
 doctest.testmod()
-
-# TODO: 4. Fix the failing is_long_word function
-# (Don't change the tests, change the function!)
 
 # TODO: 5. Write and test a function to format a phrase as a sentence,
 # starting with a capital and ending with a single full stop.
